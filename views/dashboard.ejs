@@ -32,6 +32,16 @@
         </div>
 
         <div class="dashboard-cards">
+            <% if (user.is_admin) { %>
+            <div class="dashboard-card" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; border: 2px solid #f59e0b;">
+                <h3>🔐 Admin Panel</h3>
+                <p>Access admin features and view customer chat conversations.</p>
+                <p style="margin-top: 1rem;">
+                    <a href="/admin/chats" class="btn btn-success">View Chat Logs</a>
+                </p>
+            </div>
+            <% } %>
+
             <div class="dashboard-card">
                 <h3>👤 <%= t.dashboard.profile %></h3>
                 <p><strong><%= t.auth.username %>:</strong> <%= user.username %></p>

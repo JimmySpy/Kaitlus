@@ -9,12 +9,13 @@
             <button id="chat-close" class="chat-close">×</button>
         </div>
         <div id="chat-messages" class="chat-messages">
+            <!-- Initial greeting asking for name -->
             <div class="chat-message bot">
-                <p><%= t.chat.greeting %></p>
+                <p><%= t.chat.askName %></p>
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="<%= t.chat.placeholder %>" autocomplete="off">
+            <input type="text" id="chat-input" placeholder="<%= t.chat.namePlaceholder %>" autocomplete="off">
             <button id="chat-send" class="chat-send">➤</button>
         </div>
     </div>
@@ -221,6 +222,17 @@
     
     let chatHistory = [];
     let isLoading = false;
+    let chatState = 'ask_name'; // 'ask_name', 'ask_problem', 'chatting'
+    let sessionId = null;
+    let userName = '';
+
+    const texts = {
+        askName: '<%= t.chat.askName %>',
+        askProblem: '<%= t.chat.askProblem %>',
+        placeholder: '<%= t.chat.placeholder %>',
+        namePlaceholder: '<%= t.chat.namePlaceholder %>',
+        error: '<%= t.chat.error %>'
+    };
 
     // Toggle chat
     chatBubble.addEventListener('click', () => {
@@ -242,19 +254,51 @@
         // Add user message
         addMessage(message, 'user');
         chatInput.value = '';
+
+        if (chatState === 'ask_name') {
+            // User just entered their name
+            userName = message;
+            isLoading = true;
+            chatSend.disabled = true;
+
+            try {
+                const response = await fetch('/api/chat/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: userName })
+                });
+                const data = await response.json();
+                
+                if (data.sessionId) {
+                    sessionId = data.sessionId;
+                    chatState = 'ask_problem';
+                    // Greet by name and ask for problem
+                    const greeting = texts.askProblem.replace('{name}', userName);
+                    addMessage(greeting, 'bot');
+                    chatInput.placeholder = texts.placeholder;
+                }
+            } catch (error) {
+                addMessage(texts.error, 'bot');
+            }
+
+            isLoading = false;
+            chatSend.disabled = false;
+            return;
+        }
+
+        // Normal chat flow
         chatHistory.push({ role: 'user', content: message });
 
         // Show typing indicator
         isLoading = true;
         chatSend.disabled = true;
         const typingEl = addTyping();
-        const errorMsg = '<%= t.chat.error %>';
 
         try {
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message, history: chatHistory })
+                body: JSON.stringify({ message, history: chatHistory, sessionId })
             });
 
             const data = await response.json();
@@ -263,14 +307,16 @@
             typingEl.remove();
 
             if (data.error) {
-                addMessage(errorMsg, 'bot');
+                addMessage(texts.error, 'bot');
             } else {
                 addMessage(data.reply, 'bot');
                 chatHistory.push({ role: 'assistant', content: data.reply });
             }
+            
+            chatState = 'chatting';
         } catch (error) {
             typingEl.remove();
-            addMessage(errorMsg, 'bot');
+            addMessage(texts.error, 'bot');
         }
 
         isLoading = false;

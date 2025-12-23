@@ -112,6 +112,14 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard', { user: req.session.user });
 });
 
+// Admin chat viewer (admin only)
+app.get('/admin/chats', async (req, res) => {
+    if (!req.session.user || !req.session.user.is_admin) {
+        return res.redirect('/auth/login');
+    }
+    res.render('admin-chats', { user: req.session.user });
+});
+
 // Initialize database and start server
 async function startServer() {
     try {

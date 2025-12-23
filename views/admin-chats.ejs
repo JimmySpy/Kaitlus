@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Chat Viewer - Kaitlus</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            margin-bottom: 2rem;
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-header p {
+            color: #666;
+        }
+
+        .chat-viewer {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+            min-height: 600px;
+        }
+
+        .sessions-list {
+            background: white;
+            border: 2px solid #0a0a0a;
+            overflow-y: auto;
+            max-height: 700px;
+        }
+
+        .sessions-header {
+            background: #0a0a0a;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+        }
+
+        .session-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .session-item:hover {
+            background: #f5f5f5;
+        }
+
+        .session-item.active {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .session-name {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .session-meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .session-date {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 0.25rem;
+        }
+
+        .chat-display {
+            background: white;
+            border: 2px solid #0a0a0a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-display-header {
+            background: #0a0a0a;
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .chat-display-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: 600px;
+            background: #f9fafb;
+        }
+
+        .chat-msg {
+            margin-bottom: 1rem;
+            max-width: 80%;
+        }
+
+        .chat-msg.user {
+            margin-left: auto;
+        }
+
+        .chat-msg-content {
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            line-height: 1.5;
+        }
+
+        .chat-msg.user .chat-msg-content {
+            background: #2563eb;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-msg.assistant .chat-msg-content {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-msg-time {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.25rem;
+            text-align: right;
+        }
+
+        .chat-msg.assistant .chat-msg-time {
+            text-align: left;
+        }
+
+        .no-selection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .no-sessions {
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        @media (max-width: 900px) {
+            .chat-viewer {
+                grid-template-columns: 1fr;
+            }
+
+            .sessions-list {
+                max-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">KAITLUS</a>
+        </div>
+        <div class="nav-menu">
+            <a href="/"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services"><%= t.nav.services %></a>
+            <a href="/sales"><%= t.nav.sales %></a>
+            <a href="/contact"><%= t.nav.contact %></a>
+        </div>
+        <div class="nav-links">
+            <%- include('partials/lang-switcher') %>
+            <a href="/dashboard" class="btn btn-secondary"><%= t.nav.dashboard %></a>
+            <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
+        </div>
+    </nav>
+
+    <main class="admin-container">
+        <div class="admin-header">
+            <h1>🔐 Admin Chat Viewer</h1>
+            <p>View all customer chat conversations with the AI assistant</p>
+        </div>
+
+        <div class="chat-viewer">
+            <div class="sessions-list">
+                <div class="sessions-header">Chat Sessions</div>
+                <div id="sessions-container">
+                    <div class="loading">Loading sessions...</div>
+                </div>
+            </div>
+
+            <div class="chat-display">
+                <div class="chat-display-header" id="chat-header">Select a chat session</div>
+                <div class="chat-display-messages" id="messages-container">
+                    <div class="no-selection">
+                        ← Select a chat session to view messages
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentSessionId = null;
+
+        // Load all sessions
+        async function loadSessions() {
+            try {
+                const response = await fetch('/api/admin/chats');
+                const sessions = await response.json();
+
+                const container = document.getElementById('sessions-container');
+                
+                if (sessions.length === 0) {
+                    container.innerHTML = '<div class="no-sessions">No chat sessions yet</div>';
+                    return;
+                }
+
+                container.innerHTML = sessions.map(session => `
+                    <div class="session-item" data-id="${session.id}" onclick="loadMessages(${session.id}, '${escapeHtml(session.visitor_name)}')">
+                        <div class="session-name">👤 ${escapeHtml(session.visitor_name)}</div>
+                        <div class="session-meta">${session.message_count || 0} messages</div>
+                        <div class="session-date">${formatDate(session.created_at)}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load sessions:', error);
+                document.getElementById('sessions-container').innerHTML = 
+                    '<div class="no-sessions">Failed to load sessions</div>';
+            }
+        }
+
+        // Load messages for a session
+        async function loadMessages(sessionId, visitorName) {
+            currentSessionId = sessionId;
+
+            // Update active state
+            document.querySelectorAll('.session-item').forEach(el => {
+                el.classList.remove('active');
+                if (el.dataset.id == sessionId) {
+                    el.classList.add('active');
+                }
+            });
+
+            document.getElementById('chat-header').textContent = `Chat with ${visitorName}`;
+
+            try {
+                const response = await fetch(`/api/admin/chats/${sessionId}`);
+                const data = await response.json();
+
+                const container = document.getElementById('messages-container');
+                
+                if (!data.messages || data.messages.length === 0) {
+                    container.innerHTML = '<div class="no-selection">No messages in this session</div>';
+                    return;
+                }
+
+                container.innerHTML = data.messages.map(msg => `
+                    <div class="chat-msg ${msg.role}">
+                        <div class="chat-msg-content">${escapeHtml(msg.content)}</div>
+                        <div class="chat-msg-time">${formatTime(msg.created_at)}</div>
+                    </div>
+                `).join('');
+
+                container.scrollTop = container.scrollHeight;
+            } catch (error) {
+                console.error('Failed to load messages:', error);
+                document.getElementById('messages-container').innerHTML = 
+                    '<div class="no-selection">Failed to load messages</div>';
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function formatTime(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            loadSessions();
+            if (currentSessionId) {
+                // Reload current session messages
+                const activeSession = document.querySelector('.session-item.active');
+                if (activeSession) {
+                    loadMessages(currentSessionId, activeSession.querySelector('.session-name').textContent.replace('👤 ', ''));
+                }
+            }
+        }, 30000);
+
+        // Initial load
+        loadSessions();
+    </script>
+</body>
+</html>

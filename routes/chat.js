@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../config/database');
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.GROK_API_KEY_BACKUP;
 
@@ -19,9 +20,29 @@ Be helpful, friendly, and concise. If someone wants to order, direct them to /or
 
 Keep responses short (2-3 sentences max) unless more detail is needed.`;
 
+// Start a new chat session
+router.post('/chat/start', async (req, res) => {
+    const { name } = req.body;
+
+    if (!name || !name.trim()) {
+        return res.status(400).json({ error: 'Name is required' });
+    }
+
+    try {
+        const result = await db.query(
+            'INSERT INTO chat_sessions (visitor_name) VALUES (?)',
+            [name.trim()]
+        );
+        res.json({ sessionId: result.insertId, name: name.trim() });
+    } catch (error) {
+        console.error('Failed to start chat session:', error);
+        res.status(500).json({ error: 'Failed to start session' });
+    }
+});
+
 // Chat endpoint
 router.post('/chat', async (req, res) => {
-    const { message, history = [] } = req.body;
+    const { message, history = [], sessionId } = req.body;
 
     if (!message) {
         return res.status(400).json({ error: 'Message is required' });
@@ -32,6 +53,14 @@ router.post('/chat', async (req, res) => {
     }
 
     try {
+        // Save user message to database if session exists
+        if (sessionId) {
+            await db.query(
+                'INSERT INTO chat_messages (session_id, role, content) VALUES (?, ?, ?)',
+                [sessionId, 'user', message]
+            );
+        }
+
         // Build messages array
         const messages = [
             { role: 'system', content: SYSTEM_PROMPT },
@@ -62,10 +91,55 @@ router.post('/chat', async (req, res) => {
         const data = await response.json();
         const reply = data.choices[0]?.message?.content || 'Sorry, I could not process that.';
 
+        // Save assistant reply to database if session exists
+        if (sessionId) {
+            await db.query(
+                'INSERT INTO chat_messages (session_id, role, content) VALUES (?, ?, ?)',
+                [sessionId, 'assistant', reply]
+            );
+        }
+
         res.json({ reply });
     } catch (error) {
         console.error('Chat error:', error);
         res.status(500).json({ error: 'Failed to get response' });
+    }
+});
+
+// Get all chat sessions (admin only)
+router.get('/admin/chats', async (req, res) => {
+    try {
+        const sessions = await db.query(`
+            SELECT cs.*, 
+                   COUNT(cm.id) as message_count,
+                   MAX(cm.created_at) as last_message
+            FROM chat_sessions cs
+            LEFT JOIN chat_messages cm ON cs.id = cm.session_id
+            GROUP BY cs.id
+            ORDER BY cs.created_at DESC
+        `);
+        res.json(sessions);
+    } catch (error) {
+        console.error('Failed to get chat sessions:', error);
+        res.status(500).json({ error: 'Failed to get sessions' });
+    }
+});
+
+// Get messages for a specific session (admin only)
+router.get('/admin/chats/:sessionId', async (req, res) => {
+    try {
+        const messages = await db.query(
+            'SELECT * FROM chat_messages WHERE session_id = ? ORDER BY created_at ASC',
+            [req.params.sessionId]
+        );
+        const session = await db.query(
+            'SELECT * FROM chat_sessions WHERE id = ?',
+            [req.params.sessionId]
+        );
+        res.json({ session: session[0], messages });
+    } catch (error) {
+        console.error('Failed to get chat messages:', error);
+        res.status(500).json({ error: 'Failed to get messages' });
     }
 });
 

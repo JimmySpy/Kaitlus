@@ -165,7 +165,9 @@ const translations = {
         },
         // Chat
         chat: {
-            greeting: 'Hi! 👋 How can I help you today? Ask me about container rentals, pricing, or our services!',
+            askName: 'Hi! 👋 Before we start, what\'s your name?',
+            askProblem: 'Nice to meet you, {name}! How can I help you today? Ask me about container rentals, pricing, or our services!',
+            namePlaceholder: 'Enter your name...',
             placeholder: 'Type your message...',
             error: 'Sorry, I encountered an error. Please try again.'
         },
@@ -345,7 +347,9 @@ const translations = {
         },
         // Chat
         chat: {
-            greeting: 'Tere! 👋 Kuidas saan teid aidata? Küsige konteinerite rendi, hindade või meie teenuste kohta!',
+            askName: 'Tere! 👋 Enne alustamist, mis on teie nimi?',
+            askProblem: 'Meeldiv tutvuda, {name}! Kuidas saan teid aidata? Küsige konteinerite rendi, hindade või meie teenuste kohta!',
+            namePlaceholder: 'Sisestage oma nimi...',
             placeholder: 'Kirjutage oma sõnum...',
             error: 'Vabandust, tekkis viga. Palun proovige uuesti.'
         },
@@ -525,7 +529,9 @@ const translations = {
         },
         // Chat
         chat: {
-            greeting: 'Привет! 👋 Чем могу помочь? Спрашивайте об аренде контейнеров, ценах или наших услугах!',
+            askName: 'Привет! 👋 Прежде чем начать, как вас зовут?',
+            askProblem: 'Приятно познакомиться, {name}! Чем могу помочь? Спрашивайте об аренде контейнеров, ценах или наших услугах!',
+            namePlaceholder: 'Введите ваше имя...',
             placeholder: 'Введите сообщение...',
             error: 'Извините, произошла ошибка. Попробуйте ещё раз.'
         },
