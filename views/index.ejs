@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaitlus - Welcome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">Kaitlus</a>
+        </div>
+        <div class="nav-links">
+            <% if (user) { %>
+                <span class="welcome-text">Welcome, <%= user.username %>!</span>
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+            <% } else { %>
+                <a href="/auth/login" class="btn btn-secondary">Login</a>
+                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Kaitlus</h1>
+            <p>Your awesome platform built with Node.js, MySQL, and Railway</p>
+            <% if (!user) { %>
+                <div class="hero-buttons">
+                    <a href="/auth/register" class="btn btn-primary btn-large">Get Started</a>
+                    <a href="/auth/login" class="btn btn-outline btn-large">Login</a>
+                </div>
+            <% } else { %>
+                <div class="hero-buttons">
+                    <a href="/dashboard" class="btn btn-primary btn-large">Go to Dashboard</a>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+    <section class="features">
+        <div class="feature-card">
+            <h3>🚀 Fast & Reliable</h3>
+            <p>Built with Express.js for high performance</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔒 Secure</h3>
+            <p>Password hashing and session management</p>
+        </div>
+        <div class="feature-card">
+            <h3>☁️ Cloud Ready</h3>
+            <p>Deployed on Railway with MySQL</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+    </footer>
+</body>
+</html>
