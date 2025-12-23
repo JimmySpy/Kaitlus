@@ -7,97 +7,25 @@
     </button>
     <div class="lang-menu" id="langMenu">
         <a href="/lang/en" class="lang-option <%= lang === 'en' ? 'active' : '' %>">
-            <span class="flag">🇬🇧</span> English
+            🇬🇧 English
         </a>
         <a href="/lang/et" class="lang-option <%= lang === 'et' ? 'active' : '' %>">
-            <span class="flag">🇪🇪</span> Eesti
+            🇪🇪 Eesti
         </a>
         <a href="/lang/ru" class="lang-option <%= lang === 'ru' ? 'active' : '' %>">
-            <span class="flag">🇷🇺</span> Русский
+            🇷🇺 Русский
         </a>
     </div>
 </div>
-
-<style>
-.lang-switcher {
-    position: relative;
-    margin-left: 1rem;
-}
-
-.lang-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.lang-btn:hover {
-    background: #e0e0e0;
-}
-
-.lang-icon {
-    font-size: 1.1rem;
-}
-
-.lang-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 0.5rem;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    display: none;
-    z-index: 1000;
-    min-width: 140px;
-    overflow: hidden;
-}
-
-.lang-menu.show {
-    display: block;
-}
-
-.lang-option {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    text-decoration: none;
-    color: #333;
-    transition: background 0.2s;
-}
-
-.lang-option:hover {
-    background: #f5f5f5;
-}
-
-.lang-option.active {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.lang-option .flag {
-    font-size: 1.2rem;
-}
-</style>
 
 <script>
 function toggleLangMenu() {
     document.getElementById('langMenu').classList.toggle('show');
 }
 
-// Close menu when clicking outside
 document.addEventListener('click', function(e) {
     const switcher = document.querySelector('.lang-switcher');
-    if (!switcher.contains(e.target)) {
+    if (switcher && !switcher.contains(e.target)) {
         document.getElementById('langMenu').classList.remove('show');
     }
 });

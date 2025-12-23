@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        ★ <span>FREE DELIVERY</span> on first container rental • Use code: <span>KAITLUS2025</span> ★
+    </div>
+
     <nav class="navbar">
         <div class="nav-brand">
-            <a href="/">🗑️ Kaitlus</a>
+            <a href="/">KAITLUS</a>
         </div>
         <div class="nav-menu">
             <a href="/" class="active"><%= t.nav.home %></a>
@@ -21,7 +26,6 @@
         <div class="nav-links">
             <%- include('partials/lang-switcher') %>
             <% if (user) { %>
-                <span class="welcome-text">Hi, <%= user.username %></span>
                 <a href="/dashboard" class="btn btn-secondary"><%= t.nav.dashboard %></a>
                 <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
             <% } else { %>
@@ -31,97 +35,202 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <h1><%= t.home.title %></h1>
-        <p><%= t.home.subtitle %></p>
-        <div class="hero-buttons">
-            <a href="/order" class="btn btn-primary btn-large"><%= t.home.orderBtn %></a>
-            <a href="/services" class="btn btn-outline btn-large"><%= t.home.servicesBtn %></a>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tag">★ #1 Container Service</div>
+                <h1><%= t.home.title.toUpperCase().replace('SERVICES', '<span>SERVICES</span>').replace('УСЛУГИ', '<span>УСЛУГИ</span>').replace('TEENUSED', '<span>TEENUSED</span>') %></h1>
+                <p class="hero-text"><%= t.home.subtitle %></p>
+                <div class="hero-buttons">
+                    <a href="/order" class="btn btn-success btn-large"><%= t.home.orderBtn %></a>
+                    <a href="/services" class="btn btn-white btn-large"><%= t.home.servicesBtn %></a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-grid">
+                    <div class="hero-card">
+                        <div class="hero-card-icon">📦</div>
+                        <h4>2m³ - 20m³</h4>
+                        <p>All Sizes</p>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-card-icon">🚚</div>
+                        <h4>Same Day</h4>
+                        <p>Delivery</p>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-card-icon">♻️</div>
+                        <h4>100%</h4>
+                        <p>Eco-Friendly</p>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-card-icon">⭐</div>
+                        <h4>500+</h4>
+                        <p>Happy Clients</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Marquee Banner -->
+    <div class="marquee-banner">
+        <div class="marquee-content">
+            <span class="marquee-item">Fast Delivery</span>
+            <span class="marquee-item">Professional Service</span>
+            <span class="marquee-item">Eco-Friendly</span>
+            <span class="marquee-item">Best Prices</span>
+            <span class="marquee-item">24/7 Support</span>
+            <span class="marquee-item">Fast Delivery</span>
+            <span class="marquee-item">Professional Service</span>
+            <span class="marquee-item">Eco-Friendly</span>
+            <span class="marquee-item">Best Prices</span>
+            <span class="marquee-item">24/7 Support</span>
+        </div>
+    </div>
+
+    <!-- Features Section -->
     <section class="section">
         <div class="section-title">
             <h2><%= t.home.whyChoose %></h2>
             <p><%= t.home.whyChooseDesc %></p>
         </div>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">🚚</div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🚚</div>
                 <h3><%= t.home.fastDelivery %></h3>
                 <p><%= t.home.fastDeliveryDesc %></p>
             </div>
-            <div class="card">
-                <div class="card-icon">💰</div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
                 <h3><%= t.home.fairPricing %></h3>
                 <p><%= t.home.fairPricingDesc %></p>
             </div>
-            <div class="card">
-                <div class="card-icon">♻️</div>
+            <div class="feature-card">
+                <div class="feature-icon">♻️</div>
                 <h3><%= t.home.ecoFriendly %></h3>
                 <p><%= t.home.ecoFriendlyDesc %></p>
             </div>
-            <div class="card">
-                <div class="card-icon">📞</div>
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
                 <h3><%= t.home.support %></h3>
                 <p><%= t.home.supportDesc %></p>
             </div>
         </div>
     </section>
 
+    <!-- Products/Container Sizes Section -->
     <section class="section section-gray">
         <div class="section-title">
             <h2><%= t.home.containerSizes %></h2>
             <p><%= t.home.containerSizesDesc %></p>
         </div>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h3><%= t.home.small %> (2m³)</h3>
-                <p>Perfect for small home cleanouts.</p>
-                <div class="card-price">€99 <span><%= t.home.perWeek %></span></div>
-                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-image-icon">📦</span>
+                    <span class="product-badge">Popular</span>
+                </div>
+                <div class="product-content">
+                    <div class="product-size">Compact</div>
+                    <h3><%= t.home.small %> 2m³</h3>
+                    <p class="product-desc">Perfect for small home cleanouts and minor projects.</p>
+                    <div class="product-price">
+                        <span class="amount">€99</span>
+                        <span class="period"><%= t.home.perWeek %></span>
+                    </div>
+                    <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h3><%= t.home.medium %> (5m³)</h3>
-                <p>Ideal for renovations and cleanouts.</p>
-                <div class="card-price">€149 <span><%= t.home.perWeek %></span></div>
-                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-image-icon">📦</span>
+                    <span class="product-badge">Best Value</span>
+                </div>
+                <div class="product-content">
+                    <div class="product-size">Standard</div>
+                    <h3><%= t.home.medium %> 5m³</h3>
+                    <p class="product-desc">Ideal for renovations and garage cleanouts.</p>
+                    <div class="product-price">
+                        <span class="amount">€149</span>
+                        <span class="period"><%= t.home.perWeek %></span>
+                    </div>
+                    <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h3><%= t.home.large %> (10m³)</h3>
-                <p>Great for major renovations.</p>
-                <div class="card-price">€249 <span><%= t.home.perWeek %></span></div>
-                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-image-icon">📦</span>
+                </div>
+                <div class="product-content">
+                    <div class="product-size">Professional</div>
+                    <h3><%= t.home.large %> 10m³</h3>
+                    <p class="product-desc">Great for major renovations and construction.</p>
+                    <div class="product-price">
+                        <span class="amount">€249</span>
+                        <span class="period"><%= t.home.perWeek %></span>
+                    </div>
+                    <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h3><%= t.home.extraLarge %> (20m³)</h3>
-                <p>For large construction sites.</p>
-                <div class="card-price">€399 <span><%= t.home.perWeek %></span></div>
-                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-image-icon">📦</span>
+                </div>
+                <div class="product-content">
+                    <div class="product-size">Industrial</div>
+                    <h3><%= t.home.extraLarge %> 20m³</h3>
+                    <p class="product-desc">For large construction sites and commercial use.</p>
+                    <div class="product-price">
+                        <span class="amount">€399</span>
+                        <span class="period"><%= t.home.perWeek %></span>
+                    </div>
+                    <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="section-title">
+    <!-- Stats Section -->
+    <section class="section section-dark">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Containers Delivered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Customer Support</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
             <h2><%= t.home.readyStart %></h2>
             <p><%= t.home.readyStartDesc %></p>
-        </div>
-        <div style="text-align: center;">
-            <a href="/order" class="btn btn-success btn-large"><%= t.home.orderBtn %></a>
-            <a href="/contact" class="btn btn-outline btn-large" style="margin-left: 1rem;"><%= t.home.contactUs %></a>
+            <div class="cta-buttons">
+                <a href="/order" class="btn btn-success btn-large"><%= t.home.orderBtn %></a>
+                <a href="/contact" class="btn btn-outline btn-large" style="border-color: #fff; color: #fff;"><%= t.home.contactUs %></a>
+            </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-grid">
             <div class="footer-section">
-                <h4>🗑️ Kaitlus</h4>
-                <p>Your trusted partner for waste management.</p>
+                <h4>KAITLUS</h4>
+                <p>Your trusted partner for professional waste management and container services. We deliver quality, reliability, and eco-friendly solutions.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
