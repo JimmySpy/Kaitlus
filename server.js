@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const authRoutes = require('./routes/auth');
+const chatRoutes = require('./routes/chat');
 const db = require('./config/database');
 
 const app = express();
@@ -35,6 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/api', chatRoutes);
 
 // Home page
 app.get('/', (req, res) => {
