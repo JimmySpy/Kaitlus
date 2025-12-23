@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Kaitlus</title>
+    <title>Sign In - Kaitlus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -11,30 +14,37 @@
         <div class="nav-brand">
             <a href="/">Kaitlus</a>
         </div>
+        <div class="nav-links">
+            <a href="/auth/register" class="btn btn-primary">Get Started</a>
+        </div>
     </nav>
 
     <main class="auth-container">
         <div class="auth-card">
-            <h2>Login</h2>
+            <h2>Welcome back</h2>
+            <p class="auth-subtitle">Sign in to your account to continue</p>
+            
             <% if (typeof error !== 'undefined' && error) { %>
                 <div class="alert alert-error"><%= error %></div>
             <% } %>
             <% if (typeof success !== 'undefined' && success) { %>
                 <div class="alert alert-success"><%= success %></div>
             <% } %>
+            
             <form action="/auth/login" method="POST">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    <input type="password" id="password" name="password" required placeholder="Enter your password" autocomplete="current-password">
                 </div>
-                <button type="submit" class="btn btn-primary btn-full">Login</button>
+                <button type="submit" class="btn btn-primary btn-full btn-large">Sign In</button>
             </form>
+            
             <p class="auth-footer">
-                Don't have an account? <a href="/auth/register">Sign up</a>
+                Don't have an account? <a href="/auth/register">Create one free</a>
             </p>
         </div>
     </main>
