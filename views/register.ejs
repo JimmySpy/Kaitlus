@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account - Kaitlus</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Sign Up - Kaitlus</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-brand">
-            <a href="/">Kaitlus</a>
+            <a href="/">🗑️ Kaitlus</a>
+        </div>
+        <div class="nav-menu">
+            <a href="/">Home</a>
+            <a href="/order">Order Container</a>
+            <a href="/services">Services</a>
+            <a href="/sales">Sales</a>
+            <a href="/contact">Contact</a>
         </div>
         <div class="nav-links">
-            <a href="/auth/login" class="btn btn-secondary">Sign In</a>
+            <a href="/auth/login" class="btn btn-outline">Login</a>
         </div>
     </nav>
 
     <main class="auth-container">
         <div class="auth-card">
-            <h2>Create your account</h2>
-            <p class="auth-subtitle">Start your journey with Kaitlus today</p>
+            <h2>Create Account</h2>
+            <p class="auth-subtitle">Sign up to track your orders</p>
             
             <% if (typeof error !== 'undefined' && error) { %>
                 <div class="alert alert-error"><%= error %></div>
@@ -31,19 +35,19 @@
             <form action="/auth/register" method="POST">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required placeholder="johndoe" autocomplete="username">
+                    <input type="text" id="username" name="username" required placeholder="johndoe">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="you@example.com">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Minimum 6 characters" minlength="6" autocomplete="new-password">
+                    <input type="password" id="password" name="password" required placeholder="Minimum 6 characters" minlength="6">
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter your password" autocomplete="new-password">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-full btn-large">Create Account</button>
             </form>

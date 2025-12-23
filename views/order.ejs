@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order a Container - Kaitlus</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">🗑️ Kaitlus</a>
+        </div>
+        <div class="nav-menu">
+            <a href="/">Home</a>
+            <a href="/order" class="active">Order Container</a>
+            <a href="/services">Services</a>
+            <a href="/sales">Sales</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="nav-links">
+            <% if (user) { %>
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+            <% } else { %>
+                <a href="/auth/login" class="btn btn-outline">Login</a>
+                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Order a Container</h1>
+        <p>Fill out the form below and we'll deliver your container</p>
+    </div>
+
+    <section class="section">
+        <div class="form-container">
+            <% if (typeof success !== 'undefined' && success) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert alert-error"><%= error %></div>
+            <% } %>
+
+            <h3 style="margin-bottom: 1.5rem;">1. Select Container Size</h3>
+            <div class="container-sizes">
+                <div class="size-option" data-size="small">
+                    <h4>2m³</h4>
+                    <p>Small</p>
+                    <p><strong>€99/week</strong></p>
+                </div>
+                <div class="size-option" data-size="medium">
+                    <h4>5m³</h4>
+                    <p>Medium</p>
+                    <p><strong>€149/week</strong></p>
+                </div>
+                <div class="size-option" data-size="large">
+                    <h4>10m³</h4>
+                    <p>Large</p>
+                    <p><strong>€249/week</strong></p>
+                </div>
+                <div class="size-option" data-size="xlarge">
+                    <h4>20m³</h4>
+                    <p>Extra Large</p>
+                    <p><strong>€399/week</strong></p>
+                </div>
+            </div>
+
+            <h3 style="margin: 2rem 0 1.5rem;">2. Your Details</h3>
+            <form action="/order" method="POST">
+                <input type="hidden" name="containerSize" id="containerSize" value="medium">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Delivery Address *</label>
+                    <input type="text" id="address" name="address" required placeholder="Street address">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postalCode">Postal Code *</label>
+                        <input type="text" id="postalCode" name="postalCode" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="deliveryDate">Delivery Date *</label>
+                        <input type="date" id="deliveryDate" name="deliveryDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rentalDuration">Rental Duration *</label>
+                        <select id="rentalDuration" name="rentalDuration" required>
+                            <option value="1">1 Week</option>
+                            <option value="2">2 Weeks</option>
+                            <option value="3">3 Weeks</option>
+                            <option value="4">4 Weeks</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="wasteType">Type of Waste</label>
+                    <select id="wasteType" name="wasteType">
+                        <option value="mixed">Mixed Waste</option>
+                        <option value="construction">Construction Debris</option>
+                        <option value="garden">Garden Waste</option>
+                        <option value="furniture">Furniture & Household</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" name="notes" placeholder="Any special instructions for delivery..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-large btn-full">Submit Order</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Container size selection
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.size-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('containerSize').value = this.dataset.size;
+            });
+        });
+        // Default selection
+        document.querySelector('.size-option[data-size="medium"]').classList.add('selected');
+        
+        // Set minimum date to today
+        document.getElementById('deliveryDate').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

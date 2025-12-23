@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Kaitlus</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">🗑️ Kaitlus</a>
+        </div>
+        <div class="nav-menu">
+            <a href="/">Home</a>
+            <a href="/order">Order Container</a>
+            <a href="/services" class="active">Services</a>
+            <a href="/sales">Sales</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="nav-links">
+            <% if (user) { %>
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+            <% } else { %>
+                <a href="/auth/login" class="btn btn-outline">Login</a>
+                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Our Services</h1>
+        <p>Complete waste management solutions for every need</p>
+    </div>
+
+    <section class="section">
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🏠</div>
+                <h3>Residential Services</h3>
+                <p>Perfect for home renovations, cleanouts, and garden projects.</p>
+                <ul class="service-list">
+                    <li>Home renovation waste</li>
+                    <li>Garden and yard cleanup</li>
+                    <li>Moving and decluttering</li>
+                    <li>Estate cleanouts</li>
+                </ul>
+                <a href="/order" class="btn btn-primary">Order Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🏢</div>
+                <h3>Commercial Services</h3>
+                <p>Tailored solutions for businesses and offices.</p>
+                <ul class="service-list">
+                    <li>Office cleanouts</li>
+                    <li>Retail store waste</li>
+                    <li>Warehouse cleanup</li>
+                    <li>Regular pickup schedules</li>
+                </ul>
+                <a href="/order" class="btn btn-primary">Order Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🏗️</div>
+                <h3>Construction Services</h3>
+                <p>Heavy-duty containers for construction sites.</p>
+                <ul class="service-list">
+                    <li>Demolition debris</li>
+                    <li>Building materials</li>
+                    <li>Concrete and bricks</li>
+                    <li>Long-term rentals</li>
+                </ul>
+                <a href="/order" class="btn btn-primary">Order Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">♻️</div>
+                <h3>Recycling Services</h3>
+                <p>Eco-friendly disposal and recycling options.</p>
+                <ul class="service-list">
+                    <li>Metal recycling</li>
+                    <li>Wood recycling</li>
+                    <li>Paper and cardboard</li>
+                    <li>Electronic waste</li>
+                </ul>
+                <a href="/contact" class="btn btn-primary">Contact Us</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🚛</div>
+                <h3>Same-Day Delivery</h3>
+                <p>Urgent container delivery when you need it fast.</p>
+                <ul class="service-list">
+                    <li>Emergency cleanups</li>
+                    <li>Last-minute projects</li>
+                    <li>Quick turnaround</li>
+                    <li>Priority service</li>
+                </ul>
+                <a href="/contact" class="btn btn-primary">Call Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📋</div>
+                <h3>Waste Consulting</h3>
+                <p>Expert advice for your waste management needs.</p>
+                <ul class="service-list">
+                    <li>Waste assessment</li>
+                    <li>Cost optimization</li>
+                    <li>Compliance guidance</li>
+                    <li>Custom solutions</li>
+                </ul>
+                <a href="/contact" class="btn btn-primary">Get Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-gray">
+        <div class="section-title">
+            <h2>How It Works</h2>
+            <p>Simple 4-step process</p>
+        </div>
+        <div class="cards-grid">
+            <div class="card" style="text-align: center;">
+                <div class="card-icon">1️⃣</div>
+                <h3>Choose Size</h3>
+                <p>Select the container size that fits your project needs.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="card-icon">2️⃣</div>
+                <h3>Book Online</h3>
+                <p>Fill out our simple order form with your details.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="card-icon">3️⃣</div>
+                <h3>We Deliver</h3>
+                <p>We deliver the container to your location on time.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div class="card-icon">4️⃣</div>
+                <h3>We Collect</h3>
+                <p>When you're done, we pick up and dispose responsibly.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

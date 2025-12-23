@@ -41,6 +41,46 @@ app.get('/', (req, res) => {
     res.render('index', { user: req.session.user || null });
 });
 
+// Order page
+app.get('/order', (req, res) => {
+    res.render('order', { user: req.session.user || null, success: null, error: null });
+});
+
+app.post('/order', (req, res) => {
+    // For now, just show success message
+    // TODO: Save order to database
+    res.render('order', { 
+        user: req.session.user || null, 
+        success: 'Thank you! Your order has been received. We will contact you shortly.',
+        error: null 
+    });
+});
+
+// Services page
+app.get('/services', (req, res) => {
+    res.render('services', { user: req.session.user || null });
+});
+
+// Sales page
+app.get('/sales', (req, res) => {
+    res.render('sales', { user: req.session.user || null });
+});
+
+// Contact page
+app.get('/contact', (req, res) => {
+    res.render('contact', { user: req.session.user || null, success: null, error: null });
+});
+
+app.post('/contact', (req, res) => {
+    // For now, just show success message
+    // TODO: Save message to database or send email
+    res.render('contact', { 
+        user: req.session.user || null, 
+        success: 'Thank you for your message! We will get back to you soon.',
+        error: null 
+    });
+});
+
 // Dashboard (protected route)
 app.get('/dashboard', (req, res) => {
     if (!req.session.user) {

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales - Buy Containers - Kaitlus</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/">🗑️ Kaitlus</a>
+        </div>
+        <div class="nav-menu">
+            <a href="/">Home</a>
+            <a href="/order">Order Container</a>
+            <a href="/services">Services</a>
+            <a href="/sales" class="active">Sales</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="nav-links">
+            <% if (user) { %>
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+            <% } else { %>
+                <a href="/auth/login" class="btn btn-outline">Login</a>
+                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Containers for Sale</h1>
+        <p>Buy new or used containers for your business</p>
+    </div>
+
+    <section class="section">
+        <div class="section-title">
+            <h2>New Containers</h2>
+            <p>Brand new containers with warranty</p>
+        </div>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🆕</div>
+                <h3>New 2m³ Container</h3>
+                <p>Compact container, perfect for small spaces. Steel construction with protective coating.</p>
+                <ul class="service-list">
+                    <li>Dimensions: 1.5m x 1.2m x 1.1m</li>
+                    <li>Steel construction</li>
+                    <li>2-year warranty</li>
+                    <li>Delivery included</li>
+                </ul>
+                <div class="card-price">€890</div>
+                <a href="/contact" class="btn btn-success btn-full">Inquire Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🆕</div>
+                <h3>New 5m³ Container</h3>
+                <p>Medium-sized container for residential and small business use.</p>
+                <ul class="service-list">
+                    <li>Dimensions: 2.5m x 1.5m x 1.3m</li>
+                    <li>Reinforced steel</li>
+                    <li>2-year warranty</li>
+                    <li>Delivery included</li>
+                </ul>
+                <div class="card-price">€1,490</div>
+                <a href="/contact" class="btn btn-success btn-full">Inquire Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🆕</div>
+                <h3>New 10m³ Container</h3>
+                <p>Large container for construction and commercial use.</p>
+                <ul class="service-list">
+                    <li>Dimensions: 3.5m x 1.8m x 1.6m</li>
+                    <li>Heavy-duty steel</li>
+                    <li>3-year warranty</li>
+                    <li>Delivery included</li>
+                </ul>
+                <div class="card-price">€2,490</div>
+                <a href="/contact" class="btn btn-success btn-full">Inquire Now</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🆕</div>
+                <h3>New 20m³ Container</h3>
+                <p>Extra large container for major projects and industrial use.</p>
+                <ul class="service-list">
+                    <li>Dimensions: 5.0m x 2.0m x 2.0m</li>
+                    <li>Industrial-grade steel</li>
+                    <li>3-year warranty</li>
+                    <li>Delivery included</li>
+                </ul>
+                <div class="card-price">€3,990</div>
+                <a href="/contact" class="btn btn-success btn-full">Inquire Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-gray">
+        <div class="section-title">
+            <h2>Used Containers</h2>
+            <p>Quality refurbished containers at great prices</p>
+        </div>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">♻️</div>
+                <h3>Used 5m³ Container</h3>
+                <p>Refurbished medium container in good condition.</p>
+                <ul class="service-list">
+                    <li>Inspected and cleaned</li>
+                    <li>Minor wear only</li>
+                    <li>90-day warranty</li>
+                    <li>Great value</li>
+                </ul>
+                <div class="card-price">€790 <span style="text-decoration: line-through; color: #999;">€1,490</span></div>
+                <a href="/contact" class="btn btn-primary btn-full">Check Availability</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">♻️</div>
+                <h3>Used 10m³ Container</h3>
+                <p>Refurbished large container, fully functional.</p>
+                <ul class="service-list">
+                    <li>Inspected and cleaned</li>
+                    <li>Some cosmetic wear</li>
+                    <li>90-day warranty</li>
+                    <li>Great value</li>
+                </ul>
+                <div class="card-price">€1,490 <span style="text-decoration: line-through; color: #999;">€2,490</span></div>
+                <a href="/contact" class="btn btn-primary btn-full">Check Availability</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">♻️</div>
+                <h3>Used 20m³ Container</h3>
+                <p>Refurbished extra-large container for heavy use.</p>
+                <ul class="service-list">
+                    <li>Inspected and cleaned</li>
+                    <li>Normal wear</li>
+                    <li>90-day warranty</li>
+                    <li>Best value</li>
+                </ul>
+                <div class="card-price">€2,490 <span style="text-decoration: line-through; color: #999;">€3,990</span></div>
+                <a href="/contact" class="btn btn-primary btn-full">Check Availability</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-title">
+            <h2>Bulk Orders</h2>
+            <p>Special pricing for businesses ordering multiple containers</p>
+        </div>
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <p style="margin-bottom: 1.5rem; color: var(--gray-600);">
+                Need multiple containers for your business? Contact us for special bulk pricing and customization options. We offer discounts starting from 3+ containers.
+            </p>
+            <a href="/contact" class="btn btn-primary btn-large">Request Bulk Quote</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
