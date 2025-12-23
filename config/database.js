@@ -1,7 +1,26 @@
 const mysql = require('mysql2/promise');
 
-// Database configuration
-const dbConfig = {
+// Parse MySQL URL if provided (Railway format)
+function parseDbUrl(url) {
+    if (!url) return null;
+    try {
+        const parsed = new URL(url);
+        return {
+            host: parsed.hostname,
+            port: parseInt(parsed.port) || 3306,
+            user: parsed.username,
+            password: parsed.password,
+            database: parsed.pathname.slice(1) // Remove leading /
+        };
+    } catch (e) {
+        return null;
+    }
+}
+
+// Database configuration - supports both URL and individual variables
+const urlConfig = parseDbUrl(process.env.MYSQL_URL || process.env.MYSQL_PUBLIC_URL);
+
+const dbConfig = urlConfig || {
     host: process.env.MYSQL_HOST || process.env.MYSQLHOST || 'localhost',
     port: process.env.MYSQL_PORT || process.env.MYSQLPORT || 3306,
     user: process.env.MYSQL_USER || process.env.MYSQLUSER || 'root',
