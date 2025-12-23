@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const GROQ_API_KEY = process.env.GROQ_API_KEY || process.env.GROQ_API_KEY_BACKUP;
+const GROQ_API_KEY = process.env.GROQ_API_KEY || process.env.GROK_API_KEY || process.env.GROK_API_KEY_BACKUP;
 
 // System prompt for the assistant
 const SYSTEM_PROMPT = `You are a helpful customer service assistant for Kaitlus, a garbage container rental and sales company. 
