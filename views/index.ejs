@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaitlus - Garbage Container Services</title>
+    <title>Kaitlus - <%= t.home.title %></title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,107 +12,108 @@
             <a href="/">🗑️ Kaitlus</a>
         </div>
         <div class="nav-menu">
-            <a href="/" class="active">Home</a>
-            <a href="/order">Order Container</a>
-            <a href="/services">Services</a>
-            <a href="/sales">Sales</a>
-            <a href="/contact">Contact</a>
+            <a href="/" class="active"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services"><%= t.nav.services %></a>
+            <a href="/sales"><%= t.nav.sales %></a>
+            <a href="/contact"><%= t.nav.contact %></a>
         </div>
         <div class="nav-links">
+            <%- include('partials/lang-switcher') %>
             <% if (user) { %>
                 <span class="welcome-text">Hi, <%= user.username %></span>
-                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
-                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+                <a href="/dashboard" class="btn btn-secondary"><%= t.nav.dashboard %></a>
+                <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
             <% } else { %>
-                <a href="/auth/login" class="btn btn-outline">Login</a>
-                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+                <a href="/auth/login" class="btn btn-outline"><%= t.nav.login %></a>
+                <a href="/auth/register" class="btn btn-primary"><%= t.nav.signup %></a>
             <% } %>
         </div>
     </nav>
 
     <section class="hero">
-        <h1>Reliable Garbage Container Services</h1>
-        <p>We provide waste management solutions for homes and businesses. Fast delivery, competitive prices, and excellent service.</p>
+        <h1><%= t.home.title %></h1>
+        <p><%= t.home.subtitle %></p>
         <div class="hero-buttons">
-            <a href="/order" class="btn btn-primary btn-large">Order a Container</a>
-            <a href="/services" class="btn btn-outline btn-large">Our Services</a>
+            <a href="/order" class="btn btn-primary btn-large"><%= t.home.orderBtn %></a>
+            <a href="/services" class="btn btn-outline btn-large"><%= t.home.servicesBtn %></a>
         </div>
     </section>
 
     <section class="section">
         <div class="section-title">
-            <h2>Why Choose Kaitlus?</h2>
-            <p>Quality waste management you can count on</p>
+            <h2><%= t.home.whyChoose %></h2>
+            <p><%= t.home.whyChooseDesc %></p>
         </div>
         <div class="cards-grid">
             <div class="card">
                 <div class="card-icon">🚚</div>
-                <h3>Fast Delivery</h3>
-                <p>Same-day or next-day container delivery to your location. We work on your schedule.</p>
+                <h3><%= t.home.fastDelivery %></h3>
+                <p><%= t.home.fastDeliveryDesc %></p>
             </div>
             <div class="card">
                 <div class="card-icon">💰</div>
-                <h3>Fair Pricing</h3>
-                <p>Transparent pricing with no hidden fees. Get a quote instantly online.</p>
+                <h3><%= t.home.fairPricing %></h3>
+                <p><%= t.home.fairPricingDesc %></p>
             </div>
             <div class="card">
                 <div class="card-icon">♻️</div>
-                <h3>Eco-Friendly</h3>
-                <p>We recycle and dispose of waste responsibly, following all environmental regulations.</p>
+                <h3><%= t.home.ecoFriendly %></h3>
+                <p><%= t.home.ecoFriendlyDesc %></p>
             </div>
             <div class="card">
                 <div class="card-icon">📞</div>
-                <h3>24/7 Support</h3>
-                <p>Our team is always available to help with your waste management needs.</p>
+                <h3><%= t.home.support %></h3>
+                <p><%= t.home.supportDesc %></p>
             </div>
         </div>
     </section>
 
     <section class="section section-gray">
         <div class="section-title">
-            <h2>Container Sizes</h2>
-            <p>Choose the right size for your project</p>
+            <h2><%= t.home.containerSizes %></h2>
+            <p><%= t.home.containerSizesDesc %></p>
         </div>
         <div class="cards-grid">
             <div class="card">
                 <div class="card-icon">📦</div>
-                <h3>Small (2m³)</h3>
-                <p>Perfect for small home cleanouts and minor renovations.</p>
-                <div class="card-price">€99 <span>/ week</span></div>
-                <a href="/order" class="btn btn-primary btn-full">Order Now</a>
+                <h3><%= t.home.small %> (2m³)</h3>
+                <p>Perfect for small home cleanouts.</p>
+                <div class="card-price">€99 <span><%= t.home.perWeek %></span></div>
+                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
             </div>
             <div class="card">
                 <div class="card-icon">📦</div>
-                <h3>Medium (5m³)</h3>
-                <p>Ideal for kitchen/bathroom renovations and garage cleanouts.</p>
-                <div class="card-price">€149 <span>/ week</span></div>
-                <a href="/order" class="btn btn-primary btn-full">Order Now</a>
+                <h3><%= t.home.medium %> (5m³)</h3>
+                <p>Ideal for renovations and cleanouts.</p>
+                <div class="card-price">€149 <span><%= t.home.perWeek %></span></div>
+                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
             </div>
             <div class="card">
                 <div class="card-icon">📦</div>
-                <h3>Large (10m³)</h3>
-                <p>Great for major renovations and construction projects.</p>
-                <div class="card-price">€249 <span>/ week</span></div>
-                <a href="/order" class="btn btn-primary btn-full">Order Now</a>
+                <h3><%= t.home.large %> (10m³)</h3>
+                <p>Great for major renovations.</p>
+                <div class="card-price">€249 <span><%= t.home.perWeek %></span></div>
+                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
             </div>
             <div class="card">
                 <div class="card-icon">📦</div>
-                <h3>Extra Large (20m³)</h3>
-                <p>For large construction sites and commercial projects.</p>
-                <div class="card-price">€399 <span>/ week</span></div>
-                <a href="/order" class="btn btn-primary btn-full">Order Now</a>
+                <h3><%= t.home.extraLarge %> (20m³)</h3>
+                <p>For large construction sites.</p>
+                <div class="card-price">€399 <span><%= t.home.perWeek %></span></div>
+                <a href="/order" class="btn btn-primary btn-full"><%= t.home.orderNow %></a>
             </div>
         </div>
     </section>
 
     <section class="section">
         <div class="section-title">
-            <h2>Ready to Get Started?</h2>
-            <p>Order your container today and we'll deliver it fast</p>
+            <h2><%= t.home.readyStart %></h2>
+            <p><%= t.home.readyStartDesc %></p>
         </div>
         <div style="text-align: center;">
-            <a href="/order" class="btn btn-success btn-large">Order a Container</a>
-            <a href="/contact" class="btn btn-outline btn-large" style="margin-left: 1rem;">Contact Us</a>
+            <a href="/order" class="btn btn-success btn-large"><%= t.home.orderBtn %></a>
+            <a href="/contact" class="btn btn-outline btn-large" style="margin-left: 1rem;"><%= t.home.contactUs %></a>
         </div>
     </section>
 
@@ -120,19 +121,19 @@
         <div class="footer-grid">
             <div class="footer-section">
                 <h4>🗑️ Kaitlus</h4>
-                <p>Your trusted partner for waste management and container services.</p>
+                <p>Your trusted partner for waste management.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="/order">Order Container</a></li>
-                    <li><a href="/services">Services</a></li>
-                    <li><a href="/sales">Sales</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/order"><%= t.nav.order %></a></li>
+                    <li><a href="/services"><%= t.nav.services %></a></li>
+                    <li><a href="/sales"><%= t.nav.sales %></a></li>
+                    <li><a href="/contact"><%= t.nav.contact %></a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>Contact</h4>
+                <h4><%= t.contact.getInTouch %></h4>
                 <ul>
                     <li>📍 123 Main Street</li>
                     <li>📞 +358 12 345 6789</li>
@@ -140,16 +141,16 @@
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>Hours</h4>
+                <h4><%= t.footer.hours %></h4>
                 <ul>
-                    <li>Mon-Fri: 7:00 - 18:00</li>
-                    <li>Saturday: 8:00 - 14:00</li>
-                    <li>Sunday: Closed</li>
+                    <li><%= t.footer.monFri %>: 7:00 - 18:00</li>
+                    <li><%= t.footer.saturday %>: 8:00 - 14:00</li>
+                    <li><%= t.footer.sunday %>: <%= t.footer.closed %></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+            <p>&copy; 2025 Kaitlus. <%= t.footer.rights %></p>
         </div>
     </footer>
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales - Buy Containers - Kaitlus</title>
+    <title><%= t.sales.title %> - Kaitlus</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,32 +12,33 @@
             <a href="/">🗑️ Kaitlus</a>
         </div>
         <div class="nav-menu">
-            <a href="/">Home</a>
-            <a href="/order">Order Container</a>
-            <a href="/services">Services</a>
-            <a href="/sales" class="active">Sales</a>
-            <a href="/contact">Contact</a>
+            <a href="/"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services"><%= t.nav.services %></a>
+            <a href="/sales" class="active"><%= t.nav.sales %></a>
+            <a href="/contact"><%= t.nav.contact %></a>
         </div>
         <div class="nav-links">
+            <%- include('partials/lang-switcher') %>
             <% if (user) { %>
-                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
-                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+                <a href="/dashboard" class="btn btn-secondary"><%= t.nav.dashboard %></a>
+                <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
             <% } else { %>
-                <a href="/auth/login" class="btn btn-outline">Login</a>
-                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+                <a href="/auth/login" class="btn btn-outline"><%= t.nav.login %></a>
+                <a href="/auth/register" class="btn btn-primary"><%= t.nav.signup %></a>
             <% } %>
         </div>
     </nav>
 
     <div class="page-header">
-        <h1>Containers for Sale</h1>
-        <p>Buy new or used containers for your business</p>
+        <h1><%= t.sales.title %></h1>
+        <p><%= t.sales.subtitle %></p>
     </div>
 
     <section class="section">
         <div class="section-title">
-            <h2>New Containers</h2>
-            <p>Brand new containers with warranty</p>
+            <h2><%= t.sales.newContainers %></h2>
+            <p><%= t.sales.newContainersDesc %></p>
         </div>
         <div class="cards-grid">
             <div class="card">
@@ -100,8 +101,8 @@
 
     <section class="section section-gray">
         <div class="section-title">
-            <h2>Used Containers</h2>
-            <p>Quality refurbished containers at great prices</p>
+            <h2><%= t.sales.usedContainers %></h2>
+            <p><%= t.sales.usedContainersDesc %></p>
         </div>
         <div class="cards-grid">
             <div class="card">
@@ -150,20 +151,17 @@
 
     <section class="section">
         <div class="section-title">
-            <h2>Bulk Orders</h2>
-            <p>Special pricing for businesses ordering multiple containers</p>
+            <h2><%= t.sales.bulkOrders %></h2>
+            <p><%= t.sales.bulkDesc %></p>
         </div>
         <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-            <p style="margin-bottom: 1.5rem; color: var(--gray-600);">
-                Need multiple containers for your business? Contact us for special bulk pricing and customization options. We offer discounts starting from 3+ containers.
-            </p>
-            <a href="/contact" class="btn btn-primary btn-large">Request Bulk Quote</a>
+            <a href="/contact" class="btn btn-primary btn-large"><%= t.sales.requestQuote %></a>
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-bottom">
-            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+            <p>&copy; 2025 Kaitlus. <%= t.footer.rights %></p>
         </div>
     </footer>
 

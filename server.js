@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
 const db = require('./config/database');
+const translations = require('./config/translations');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,7 +17,26 @@ app.set('trust proxy', 1);
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Language middleware
+app.use((req, res, next) => {
+    const lang = req.cookies.lang || 'en';
+    req.lang = lang;
+    res.locals.lang = lang;
+    res.locals.t = translations[lang] || translations['en'];
+    next();
+});
+
+// Language switch route
+app.get('/lang/:code', (req, res) => {
+    const lang = req.params.code;
+    if (['en', 'et', 'ru'].includes(lang)) {
+        res.cookie('lang', lang, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true });
+    }
+    res.redirect('back');
+});
 
 // Session configuration
 app.use(session({
@@ -53,7 +74,7 @@ app.post('/order', (req, res) => {
     // TODO: Save order to database
     res.render('order', { 
         user: req.session.user || null, 
-        success: 'Thank you! Your order has been received. We will contact you shortly.',
+        success: res.locals.t.order.success,
         error: null 
     });
 });
@@ -78,7 +99,7 @@ app.post('/contact', (req, res) => {
     // TODO: Save message to database or send email
     res.render('contact', { 
         user: req.session.user || null, 
-        success: 'Thank you for your message! We will get back to you soon.',
+        success: res.locals.t.contact.success,
         error: null 
     });
 });

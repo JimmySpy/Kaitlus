@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Kaitlus</title>
+    <title><%= t.nav.dashboard %> - Kaitlus</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,45 +12,46 @@
             <a href="/">🗑️ Kaitlus</a>
         </div>
         <div class="nav-menu">
-            <a href="/">Home</a>
-            <a href="/order">Order Container</a>
-            <a href="/services">Services</a>
-            <a href="/sales">Sales</a>
-            <a href="/contact">Contact</a>
+            <a href="/"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services"><%= t.nav.services %></a>
+            <a href="/sales"><%= t.nav.sales %></a>
+            <a href="/contact"><%= t.nav.contact %></a>
         </div>
         <div class="nav-links">
+            <%- include('partials/lang-switcher') %>
             <span class="welcome-text">Hi, <%= user.username %></span>
-            <a href="/auth/logout" class="btn btn-outline">Logout</a>
+            <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
         </div>
     </nav>
 
     <main class="dashboard">
         <div class="dashboard-header">
-            <h1>Welcome, <%= user.username %>!</h1>
-            <p>Manage your account and orders here.</p>
+            <h1><%= t.dashboard.welcome %>, <%= user.username %>!</h1>
+            <p><%= t.dashboard.manageAccount %></p>
         </div>
 
         <div class="dashboard-cards">
             <div class="dashboard-card">
-                <h3>👤 Profile</h3>
-                <p><strong>Username:</strong> <%= user.username %></p>
-                <p><strong>Email:</strong> <%= user.email %></p>
-                <p><strong>Member since:</strong> <%= new Date(user.created_at).toLocaleDateString() %></p>
+                <h3>👤 <%= t.dashboard.profile %></h3>
+                <p><strong><%= t.auth.username %>:</strong> <%= user.username %></p>
+                <p><strong><%= t.auth.email %>:</strong> <%= user.email %></p>
+                <p><strong><%= t.dashboard.memberSince %>:</strong> <%= new Date(user.created_at).toLocaleDateString() %></p>
             </div>
             
             <div class="dashboard-card">
-                <h3>📦 My Orders</h3>
-                <p>No orders yet.</p>
+                <h3>📦 <%= t.dashboard.myOrders %></h3>
+                <p><%= t.dashboard.noOrders %></p>
                 <p style="margin-top: 1rem;">
-                    <a href="/order" class="btn btn-primary">Order a Container</a>
+                    <a href="/order" class="btn btn-primary"><%= t.home.orderBtn %></a>
                 </p>
             </div>
             
             <div class="dashboard-card">
-                <h3>📞 Need Help?</h3>
-                <p>Contact our support team for assistance with your orders.</p>
+                <h3>📞 <%= t.dashboard.needHelp %></h3>
+                <p><%= t.dashboard.helpDesc %></p>
                 <p style="margin-top: 1rem;">
-                    <a href="/contact" class="btn btn-outline">Contact Us</a>
+                    <a href="/contact" class="btn btn-outline"><%= t.home.contactUs %></a>
                 </p>
             </div>
         </div>
@@ -58,7 +59,7 @@
 
     <footer class="footer">
         <div class="footer-bottom">
-            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+            <p>&copy; 2025 Kaitlus. <%= t.footer.rights %></p>
         </div>
     </footer>
 

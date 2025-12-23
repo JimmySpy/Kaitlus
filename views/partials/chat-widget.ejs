@@ -10,11 +10,11 @@
         </div>
         <div id="chat-messages" class="chat-messages">
             <div class="chat-message bot">
-                <p>Hi! 👋 How can I help you today? Ask me about container rentals, pricing, or our services!</p>
+                <p><%= t.chat.greeting %></p>
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
+            <input type="text" id="chat-input" placeholder="<%= t.chat.placeholder %>" autocomplete="off">
             <button id="chat-send" class="chat-send">➤</button>
         </div>
     </div>
@@ -248,6 +248,7 @@
         isLoading = true;
         chatSend.disabled = true;
         const typingEl = addTyping();
+        const errorMsg = '<%= t.chat.error %>';
 
         try {
             const response = await fetch('/api/chat', {
@@ -262,14 +263,14 @@
             typingEl.remove();
 
             if (data.error) {
-                addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                addMessage(errorMsg, 'bot');
             } else {
                 addMessage(data.reply, 'bot');
                 chatHistory.push({ role: 'assistant', content: data.reply });
             }
         } catch (error) {
             typingEl.remove();
-            addMessage('Sorry, I could not connect. Please try again.', 'bot');
+            addMessage(errorMsg, 'bot');
         }
 
         isLoading = false;

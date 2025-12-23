@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Kaitlus</title>
+    <title><%= t.nav.login %> - Kaitlus</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,21 +12,22 @@
             <a href="/">🗑️ Kaitlus</a>
         </div>
         <div class="nav-menu">
-            <a href="/">Home</a>
-            <a href="/order">Order Container</a>
-            <a href="/services">Services</a>
-            <a href="/sales">Sales</a>
-            <a href="/contact">Contact</a>
+            <a href="/"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services"><%= t.nav.services %></a>
+            <a href="/sales"><%= t.nav.sales %></a>
+            <a href="/contact"><%= t.nav.contact %></a>
         </div>
         <div class="nav-links">
-            <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+            <%- include('partials/lang-switcher') %>
+            <a href="/auth/register" class="btn btn-primary"><%= t.nav.signup %></a>
         </div>
     </nav>
 
     <main class="auth-container">
         <div class="auth-card">
-            <h2>Welcome Back</h2>
-            <p class="auth-subtitle">Sign in to your account</p>
+            <h2><%= t.auth.welcomeBack %></h2>
+            <p class="auth-subtitle"><%= t.auth.signInDesc %></p>
             
             <% if (typeof error !== 'undefined' && error) { %>
                 <div class="alert alert-error"><%= error %></div>
@@ -37,18 +38,18 @@
             
             <form action="/auth/login" method="POST">
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email"><%= t.auth.email %></label>
                     <input type="email" id="email" name="email" required placeholder="you@example.com">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Your password">
+                    <label for="password"><%= t.auth.password %></label>
+                    <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full btn-large">Sign In</button>
+                <button type="submit" class="btn btn-primary btn-full btn-large"><%= t.auth.signIn %></button>
             </form>
             
             <p class="auth-footer">
-                Don't have an account? <a href="/auth/register">Sign up</a>
+                <%= t.auth.noAccount %> <a href="/auth/register"><%= t.nav.signup %></a>
             </p>
         </div>
     </main>

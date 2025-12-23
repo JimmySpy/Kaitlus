@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Kaitlus</title>
+    <title><%= t.contact.title %> - Kaitlus</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,37 +12,38 @@
             <a href="/">🗑️ Kaitlus</a>
         </div>
         <div class="nav-menu">
-            <a href="/">Home</a>
-            <a href="/order">Order Container</a>
-            <a href="/services">Services</a>
-            <a href="/sales">Sales</a>
-            <a href="/contact" class="active">Contact</a>
+            <a href="/"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services"><%= t.nav.services %></a>
+            <a href="/sales"><%= t.nav.sales %></a>
+            <a href="/contact" class="active"><%= t.nav.contact %></a>
         </div>
         <div class="nav-links">
+            <%- include('partials/lang-switcher') %>
             <% if (user) { %>
-                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
-                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+                <a href="/dashboard" class="btn btn-secondary"><%= t.nav.dashboard %></a>
+                <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
             <% } else { %>
-                <a href="/auth/login" class="btn btn-outline">Login</a>
-                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+                <a href="/auth/login" class="btn btn-outline"><%= t.nav.login %></a>
+                <a href="/auth/register" class="btn btn-primary"><%= t.nav.signup %></a>
             <% } %>
         </div>
     </nav>
 
     <div class="page-header">
-        <h1>Contact Us</h1>
-        <p>We're here to help with all your waste management needs</p>
+        <h1><%= t.contact.title %></h1>
+        <p><%= t.contact.subtitle %></p>
     </div>
 
     <section class="section">
         <div class="contact-grid">
             <div class="contact-info">
-                <h3>Get in Touch</h3>
+                <h3><%= t.contact.getInTouch %></h3>
                 
                 <div class="contact-item">
                     <div class="contact-icon">📍</div>
                     <div>
-                        <h4>Address</h4>
+                        <h4><%= t.contact.addressLabel %></h4>
                         <p>123 Industrial Street<br>00100 Helsinki, Finland</p>
                     </div>
                 </div>
@@ -50,7 +51,7 @@
                 <div class="contact-item">
                     <div class="contact-icon">📞</div>
                     <div>
-                        <h4>Phone</h4>
+                        <h4><%= t.contact.phoneLabel %></h4>
                         <p>+358 12 345 6789</p>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                 <div class="contact-item">
                     <div class="contact-icon">✉️</div>
                     <div>
-                        <h4>Email</h4>
+                        <h4><%= t.contact.emailLabel %></h4>
                         <p>info@kaitlus.com</p>
                     </div>
                 </div>
@@ -66,14 +67,14 @@
                 <div class="contact-item">
                     <div class="contact-icon">🕐</div>
                     <div>
-                        <h4>Business Hours</h4>
-                        <p>Monday - Friday: 7:00 - 18:00<br>Saturday: 8:00 - 14:00<br>Sunday: Closed</p>
+                        <h4><%= t.contact.hoursLabel %></h4>
+                        <p><%= t.footer.monFri %>: 7:00 - 18:00<br><%= t.footer.saturday %>: 8:00 - 14:00<br><%= t.footer.sunday %>: <%= t.footer.closed %></p>
                     </div>
                 </div>
             </div>
 
             <div class="form-container" style="margin: 0;">
-                <h3 style="margin-bottom: 1.5rem;">Send us a Message</h3>
+                <h3 style="margin-bottom: 1.5rem;"><%= t.contact.sendMessage %></h3>
                 
                 <% if (typeof success !== 'undefined' && success) { %>
                     <div class="alert alert-success"><%= success %></div>
@@ -85,38 +86,37 @@
                 <form action="/contact" method="POST">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="name">Your Name *</label>
+                            <label for="name"><%= t.contact.yourName %> *</label>
                             <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email *</label>
+                            <label for="email"><%= t.order.email %> *</label>
                             <input type="email" id="email" name="email" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
+                        <label for="phone"><%= t.order.phone %></label>
                         <input type="tel" id="phone" name="phone">
                     </div>
 
                     <div class="form-group">
-                        <label for="subject">Subject *</label>
+                        <label for="subject"><%= t.contact.subject %> *</label>
                         <select id="subject" name="subject" required>
-                            <option value="">Select a topic...</option>
-                            <option value="quote">Request a Quote</option>
-                            <option value="order">Order Question</option>
-                            <option value="sales">Container Sales</option>
-                            <option value="support">Customer Support</option>
-                            <option value="other">Other</option>
+                            <option value=""><%= t.contact.selectTopic %></option>
+                            <option value="quote"><%= t.contact.quote %></option>
+                            <option value="order"><%= t.contact.orderQuestion %></option>
+                            <option value="sales"><%= t.contact.containerSales %></option>
+                            <option value="support"><%= t.contact.customerSupport %></option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" required placeholder="How can we help you?"></textarea>
+                        <label for="message"><%= t.contact.message %> *</label>
+                        <textarea id="message" name="message" required placeholder="<%= t.contact.messagePlaceholder %>"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-large btn-full">Send Message</button>
+                    <button type="submit" class="btn btn-primary btn-large btn-full"><%= t.contact.send %></button>
                 </form>
             </div>
         </div>
@@ -124,7 +124,7 @@
 
     <footer class="footer">
         <div class="footer-bottom">
-            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+            <p>&copy; 2025 Kaitlus. <%= t.footer.rights %></p>
         </div>
     </footer>
 

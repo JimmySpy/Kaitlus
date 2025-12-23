@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - Kaitlus</title>
+    <title><%= t.services.title %> - Kaitlus</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,26 +12,27 @@
             <a href="/">🗑️ Kaitlus</a>
         </div>
         <div class="nav-menu">
-            <a href="/">Home</a>
-            <a href="/order">Order Container</a>
-            <a href="/services" class="active">Services</a>
-            <a href="/sales">Sales</a>
-            <a href="/contact">Contact</a>
+            <a href="/"><%= t.nav.home %></a>
+            <a href="/order"><%= t.nav.order %></a>
+            <a href="/services" class="active"><%= t.nav.services %></a>
+            <a href="/sales"><%= t.nav.sales %></a>
+            <a href="/contact"><%= t.nav.contact %></a>
         </div>
         <div class="nav-links">
+            <%- include('partials/lang-switcher') %>
             <% if (user) { %>
-                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
-                <a href="/auth/logout" class="btn btn-outline">Logout</a>
+                <a href="/dashboard" class="btn btn-secondary"><%= t.nav.dashboard %></a>
+                <a href="/auth/logout" class="btn btn-outline"><%= t.nav.logout %></a>
             <% } else { %>
-                <a href="/auth/login" class="btn btn-outline">Login</a>
-                <a href="/auth/register" class="btn btn-primary">Sign Up</a>
+                <a href="/auth/login" class="btn btn-outline"><%= t.nav.login %></a>
+                <a href="/auth/register" class="btn btn-primary"><%= t.nav.signup %></a>
             <% } %>
         </div>
     </nav>
 
     <div class="page-header">
-        <h1>Our Services</h1>
-        <p>Complete waste management solutions for every need</p>
+        <h1><%= t.services.title %></h1>
+        <p><%= t.services.subtitle %></p>
     </div>
 
     <section class="section">
@@ -118,36 +119,36 @@
 
     <section class="section section-gray">
         <div class="section-title">
-            <h2>How It Works</h2>
-            <p>Simple 4-step process</p>
+            <h2><%= t.services.howItWorks %></h2>
+            <p><%= t.services.howItWorksDesc %></p>
         </div>
         <div class="cards-grid">
             <div class="card" style="text-align: center;">
                 <div class="card-icon">1️⃣</div>
-                <h3>Choose Size</h3>
-                <p>Select the container size that fits your project needs.</p>
+                <h3><%= t.services.step1 %></h3>
+                <p><%= t.services.step1Desc %></p>
             </div>
             <div class="card" style="text-align: center;">
                 <div class="card-icon">2️⃣</div>
-                <h3>Book Online</h3>
-                <p>Fill out our simple order form with your details.</p>
+                <h3><%= t.services.step2 %></h3>
+                <p><%= t.services.step2Desc %></p>
             </div>
             <div class="card" style="text-align: center;">
                 <div class="card-icon">3️⃣</div>
-                <h3>We Deliver</h3>
-                <p>We deliver the container to your location on time.</p>
+                <h3><%= t.services.step3 %></h3>
+                <p><%= t.services.step3Desc %></p>
             </div>
             <div class="card" style="text-align: center;">
                 <div class="card-icon">4️⃣</div>
-                <h3>We Collect</h3>
-                <p>When you're done, we pick up and dispose responsibly.</p>
+                <h3><%= t.services.step4 %></h3>
+                <p><%= t.services.step4Desc %></p>
             </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-bottom">
-            <p>&copy; 2025 Kaitlus. All rights reserved.</p>
+            <p>&copy; 2025 Kaitlus. <%= t.footer.rights %></p>
         </div>
     </footer>
 
